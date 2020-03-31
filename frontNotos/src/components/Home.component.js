@@ -3,11 +3,9 @@ import { Container } from "reactstrap";
 import { Button } from 'reactstrap';
 //import Contacts from "./contacts";
 import Users from "./users"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import PostRequest from "./PostRequest.component";
 
 export default class Login extends Component {
-
 
   render() {
 
@@ -23,8 +21,8 @@ export default class Login extends Component {
         <Button className="btn btn-outline-info" outline size="lg">
           Aportar
         </Button>
-        <Users/>
-
+        {/* <Users/> */}
+        <PostRequest/>
       </Container>
     );
   }

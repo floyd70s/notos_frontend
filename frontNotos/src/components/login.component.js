@@ -43,6 +43,7 @@ import React, { Component } from "react";
                         </div>
                     </div>
 
+<<<<<<< HEAD
                     <button type="submit" className="btn btn-primary btn-block">Ingresar</button>
                     <p className="forgot-password text-right">
                         Olvidó su <a href="#">contraseña?</a>
@@ -50,4 +51,12 @@ import React, { Component } from "react";
                 </form>
             );
         }
+=======
+                <button type="submit" className="btn btn-primary btn-block">Ingresar</button>
+                <p className="forgot-password text-right">
+                    Olvidó su <a href="#restorepassword">contraseña?</a>
+                </p>
+            </form>
+        );
+>>>>>>> 227e320db1a8723aa58db6595e3b95949e71e45b
     }
