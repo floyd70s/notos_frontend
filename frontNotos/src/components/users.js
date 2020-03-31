@@ -33,7 +33,7 @@ class Users extends Component {
   render() {
 
     const { isLoaded, items } = this.state;
-    
+
     const myObjStr = JSON.stringify(items);
     console.log(myObjStr);
     //items.user.map(item => (
@@ -52,7 +52,7 @@ class Users extends Component {
           </div>
         </div>
       ))}
-    </div> 
+    </div>
     );
   }
 

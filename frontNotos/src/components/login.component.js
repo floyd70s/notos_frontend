@@ -25,7 +25,7 @@ export default class Login extends Component {
 
                 <button type="submit" className="btn btn-primary btn-block">Ingresar</button>
                 <p className="forgot-password text-right">
-                    Olvidó su <a href="#">contraseña?</a>
+                    Olvidó su <a href="#restorepassword">contraseña?</a>
                 </p>
             </form>
         );

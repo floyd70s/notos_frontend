@@ -8,9 +8,8 @@ import Login from "./components/login.component";
 import SignUp from "./components/signup.component";
 import Home from "./components/Home.component";
 
-
 function App() {
-  
+
   return (<Router>
     <div className="App">
       <nav className="navbar navbar-expand-lg bg-light fixed-top">
@@ -52,7 +51,8 @@ function App() {
           </Switch>
         </div>
       </div>
-    </div></Router>
+    </div>
+  </Router>
   );
 }
 

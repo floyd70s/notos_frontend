@@ -88,31 +88,6 @@ export default class SignUp extends Component {
   //   const name_1 = target.name_1;
   // }
 
-   login(rut,email, password) {
-
-    console.log(rut + ' ' + email + ' ' + password)
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ rut,email, password })
-    };
-
-    return fetch('http://192.168.0.93:3977/api/get-users', requestOptions)
-      .then(res => res.json())
-      .then(user => {
-        // login successful if there's a user in the response
-        if (user) {
-          // store user details and basic auth credentials in local storage
-          // to keep user logged in between page refreshes
-          console.log('usuario: '+user.name + ' logeado')
-          localStorage.setItem('user', JSON.stringify(user));
-        }
-        return user;
-      });
-  }
-
-
-
   onSubmit(e) {
     console.log(this.state.name_1);
     console.log(this.state.description);
@@ -126,40 +101,27 @@ export default class SignUp extends Component {
     console.log(this.state.password_2);
 
     /* validacion de usuario */
-    const email= this.state.email
-    const password= this.state.password
-    const rut= this.state.rut
-    const userLogin=  SignUp.login(email, password,rut)
-    console.log(userLogin)
+    const email = this.state.email
+    const password = this.state.password
+    const rut = this.state.rut
+    //const userLogin = login(rut, email, password)
+    //console.log(userLogin)
   }
 
 
-
-
-//   componentDidMount() {
-//     fetch('http://192.168.0.93:3977/api/get-users')
-//    //fetch('https://jsonplaceholder.typicode.com/users')
-//      .then(res => res.json())
-//      .then(json => {
-//        this.setState({
-//          items: json,
-//          isLoaded: true,
-//        })
-//      }).catch((err) => {
-//        console.log(err);
-//      });
-//  }
-
-
-
-
-
-
-
-
-
-
-
+  //   componentDidMount() {
+  //     fetch('http://192.168.0.93:3977/api/get-users')
+  //    //fetch('https://jsonplaceholder.typicode.com/users')
+  //      .then(res => res.json())
+  //      .then(json => {
+  //        this.setState({
+  //          items: json,
+  //          isLoaded: true,
+  //        })
+  //      }).catch((err) => {
+  //        console.log(err);
+  //      });
+  //  }
 
 
 
@@ -240,9 +202,11 @@ export default class SignUp extends Component {
         </div>
         <button type="submit" className="btn btn-primary btn-block" onClick={() => this.onSubmit()}>Inscribir</button>
         <p className="forgot-password text-right">
-          usted ya se encuentra registrado <a href="#">ingresar?</a>
+          usted ya se encuentra registrado <a href="#login">ingresar?</a>
         </p>
       </form>
     );
   }
 }
+
+
