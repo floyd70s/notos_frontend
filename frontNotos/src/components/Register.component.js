@@ -1,5 +1,52 @@
 import React from 'react'
 
+const validate = values => {
+  const errors = {}
+
+  if (!values.name_1) {
+    errors.name_1 = 'El nombre de la iniciativa es obligatorio'
+  }
+  if (!values.description) {
+    errors.description = 'La descripción de la iniciativa es obligatoria'
+  }
+  if (!values.name) {
+    errors.name = 'El nombre del responsable es obligatorio'
+  }
+
+  // if (!values.rut) {
+  //   errors.rut = 'El rut del responsable es obligatorio'
+  // }
+  // else {
+  //   if (validaRut(values.rut)) {
+  //     errors.rut = 'RUT incorrecto'
+  //   }
+  // }
+  // if (!values.email) {
+  //   errors.email = 'El email del responsable es obligatorio'
+  // }
+  // if (!values.phone) {
+  //   errors.phone = 'El teléfono del responsable es obligatorio'
+  // }
+  // if (!values.account_type) {
+  //   errors.account_type = 'Seleccione un tipo de cuenta'
+  // }
+  // if (!values.bank) {
+  //   errors.bank = 'Seleccione el banco'
+  // }
+  // if (!values.bank_account) {
+  //   errors.bank_account = 'El número de cuenta bancaria es obligatorio'
+  // }
+  // if (!values.password) {
+  //   errors.password = 'El password debe cumplir: A lo menos 1 Mayúscula - 1 Número y largo minimo de 8 '
+  // }
+  return errors
+}
+
+function validaRut(rut) {
+  return true;
+
+}
+
 class Register extends React.Component {
   constructor(props) {
     super(props)
@@ -27,47 +74,27 @@ class Register extends React.Component {
     this.setState({ [name]: value })
   }
 
-
-  // handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   JSON.stringify(this.state)
-  //   const values = JSON.stringify(this.state)
-  //   this.UserExists(values.email, values.password, values.rut)
-
-  //   const { items } = this.state;
-
-  //   alert(JSON.stringify(items));
-  //   for (var _id in items) {
-  //     alert(' name=' + _id + ' value=' + items["user"]._id);
-  //   }
-  // }
-
-
-
   handleClick(e) {
-
     e.preventDefault()
+
+    const { errors, ...noErrors } = this.state
+    const result = validate(noErrors)
+
+    if (Object.keys(result)) {
+      return this.setState({ errors: result })
+    }
     JSON.stringify(this.state)
     const values = JSON.stringify(this.state)
+    this.UserExist(values.email, values.password, values.rut)
 
-    this.UserExists(values.email, values.password, values.rut)
 
-    const values2 = JSON.stringify(this.state)
-    console.log('values2.status - - - - ')
-    console.log(values2.status)
-
-    const { items } = this.state;
-    //alert(JSON.stringify(items));
-
-    for (var _id in items) {
-      alert(' name=' + _id + ' value=' + items["user"]._id);
-    }
   }
 
 
 
   render() {
     const { name_1, description, name, rut, email, phone, account_type, bank, bank_account, password, password_2 } = this.state
+    const { errors } = this.state
     return (
       <div>
         {/* <form onSubmit={this.handleSubmit}> */}
@@ -75,34 +102,40 @@ class Register extends React.Component {
           <h3>Inscripción</h3>
           <h3>Datos de la Iniciativa</h3>
           <div className="form-group">
-            {/* <label>Nombre Iniciativa</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.name_1}</label>}
             <input type="text" required className="form-control" placeholder="Nombre Iniciativa" name="name_1" value={name_1} onChange={this.handleChange} />
           </div>
           <div className="form-group">
             {/* <label>Descripción</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.description}</label>}
             <textarea required name="description" className="form-control" placeholder="Ingresa una Descripción de tu iniciativa, esta deber ser lo mas clara posible." rows="7" cols="80" value={description} onChange={this.handleChange}></textarea>
           </div>
           <h3>Datos del Responsable</h3>
           <div className="form-group">
             {/* <label>Nombre</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.name}</label>}
             <input required type="text" className="form-control" placeholder="Nombre Responsable" name="name" value={name} onChange={this.handleChange} />
           </div>
 
           <div className="form-group">
             {/* <label>Rut</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.rut}</label>}
             <input required type="text" className="form-control" placeholder="Rut" name="rut" value={rut} onChange={this.handleChange} />
           </div>
 
           <div className="form-group">
             {/* <label>Correo</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.email}</label>}
             <input required type="email" className="form-control" placeholder="Correo" name="email" value={email} onChange={this.handleChange} />
           </div>
           <div className="form-group">
             {/* <label>Teléfono</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.phone}</label>}
             <input required type="phone" className="form-control" placeholder="Teléfono" name="phone" value={phone} onChange={this.handleChange} />
           </div>
           <div className="form-group">
             {/* <label>Tipo de Cuenta</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.account_type}</label>}
             <select required id="accountType" name="account_type" className="form-control" value={account_type} onChange={this.handleChange}>
               <option>Cuenta Corriente</option>
               <option>Cuenta Vista</option>
@@ -110,6 +143,7 @@ class Register extends React.Component {
           </div>
           <div className="form-group">
             {/* <label>Banco</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.bank}</label>}
             <select required id="bank" name="bank" className="form-control" value={bank} onChange={this.handleChange}>
               <option>Banco Bci</option>
               <option>Banco de Chile</option>
@@ -131,10 +165,12 @@ class Register extends React.Component {
           </div>
           <div className="form-group">
             {/* <label>Nº Cuenta</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.bank_account}</label>}
             <input required type="text" className="form-control" placeholder="Nº Cuenta" name="bank_account" value={bank_account} onChange={this.handleChange} />
           </div>
           <div className="form-group">
             {/* <label>Password</label> */}
+            {errors.name_1 && <label class="text-danger">{errors.password}</label>}
             <input required type="password" className="form-control" placeholder="Contraseña" name="password" value={password} onChange={this.handleChange} />
           </div>
           <div className="form-group">
@@ -207,23 +243,6 @@ class Register extends React.Component {
       .catch((err) => {
         return "error";
       })
-    // fetch(request)
-    // .then(res => res.json())
-    // .catch((err) => {
-    //   return "error";
-    // })
-    // .then(response => {
-    //   this.setState({ status: response })
-    //   var respuesta= response
-    //   console.log(response)
-
-
-    //   console.log(respuesta['user'].bank)
-    //   console.log(respuesta['user']._id)
-    //   localStorage.setItem('_id', respuesta['user']._id);
-    //   console.log('this.status')
-    // })
-
 
     console.log('respuesta del fetch')
   }
@@ -270,44 +289,9 @@ class Register extends React.Component {
   }
 
 
-
-
-
-
-  getData = (email, password, rut) => {
-    rut = '121081784'
-    email = 'floyd70s@gmail.com'
-    password = 'Galloviejo1'
-    var url = 'http://192.168.0.93:3977/api/get-user-by-rut',
-      params = {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({ 'rut': rut, 'email': email, 'password': password }),
-        headers: { 'Content-Type': 'application/json' },
-      };
-
-    var request = new Request(url, params);
-    fetch(request)
-      .then(res => {
-        localStorage.clear()
-        localStorage.setItem('datos', res);
-        console.log('respuesta de localStorage')
-        console.log(localStorage.getItem('datos'))
-        return res.json()
-      })
-      .then(response => {
-        this.setState({ status: response })
-        console.log('this.status')
-
-      })
-  }
-
 }
 
 
-
-
-
-export default Register;
+  export default Register;
 
 
