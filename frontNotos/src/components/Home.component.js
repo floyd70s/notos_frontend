@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Container } from "reactstrap";
 import { Button } from 'reactstrap';
 //import Contacts from "./contacts";
-import Users from "./users"
-import PostRequest from "./PostRequest.component";
+// import Users from "./users"
+//import PostRequest from "./PostRequest.component";
+import Register from "./Register.component";
 
 export default class Login extends Component {
 
@@ -22,7 +23,8 @@ export default class Login extends Component {
           Aportar
         </Button>
         {/* <Users/> */}
-        <PostRequest/>
+        {/* <PostRequest/> */}
+        < Register />
       </Container>
     );
   }

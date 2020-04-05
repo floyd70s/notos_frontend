@@ -13,14 +13,13 @@ class PostRequest extends Component {
   componentDidMount() {
     const rut = '121081784'
     const email = 'floyd70s@gmail.com'
-    const password = 'Galloviejo2'
+    const password = 'Galloviejo1'
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 'rut': rut, 'email': email, 'password': password })
     };
-
-    return fetch('http://192.168.0.93:3977/api/get-user-by-rut', requestOptions, { mode: 'cors' })
+    return fetch('http://192.168.0.93:3977/api/get-user-by-rut', requestOptions, { mode: 'no-cors' })
       .then(res => res.json())
       .catch((err) => {
         console.log(err);
@@ -35,21 +34,13 @@ class PostRequest extends Component {
       });
   }
 
-  /**
-       * render
-
-       * Render UI
-       */
   render() {
 
-    const { isLoaded, items } = this.state;
+      const { isLoaded, items } = this.state;
 
-    // console.log('*ITEMS*')
-    // console.log(items.user.name);
-
-    for (var _id in items) {
-      console.log(' name=' + _id  + ' value=' + items[_id].rut);
-   }
+      for (var _id in items) {
+        console.log(' name=' + _id  + ' value=' + items[_id].rut);
+    }
 
 
 
@@ -72,58 +63,3 @@ class PostRequest extends Component {
 }
 
 export default PostRequest;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function login(rut, email, password) {
-
-//   console.log(rut + ' ' + email + ' ' + password)
-//   const requestOptions = {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     //body: JSON.stringify({ 'rut': rut, 'email': email, 'password': password })
-//     body: JSON.stringify({ title: 'React POST Request Example' })
-//   };
-//   console.log('BODY--->' + requestOptions.body)
-//   // return fetch('http://192.168.0.93:3977/api/get-user-by-rut', requestOptions)
-//   return fetch('https://jsonplaceholder.typicode.com/posts', requestOptions)
-//     .then(response => {
-//       console.log(response.statusText)
-//       if (!response.ok) throw Error(response.status);
-//       return response;
-//     })
-//     .then(response => console.log("ok"))
-//     .catch(error => console.log(error));
-
-// }
-

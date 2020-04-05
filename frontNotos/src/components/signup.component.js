@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 
-
 export default class SignUp extends Component {
 
   constructor(props) {
+    super(props)
 
-    super()
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeName_1 = this.onChangeName_1.bind(this);
     this.onChangedescription = this.onChangedescription.bind(this);
@@ -32,9 +31,11 @@ export default class SignUp extends Component {
       bank: '',
       bank_account: '',
       password: '',
-      password_2: ''
-    }
+      password_2: '',
 
+      items: [],
+    }
+    this.UserExists = this.UserExists.bind(this)
   }
 
   // Form Events
@@ -82,47 +83,18 @@ export default class SignUp extends Component {
     this.setState({ password_2: e.target.value })
   }
 
-  // handleInputChange(event) {
-  //   const target = event.target;
-  //   const value = target.name === 'isGoing' ? target.checked : target.value;
-  //   const name_1 = target.name_1;
-  // }
-
   onSubmit(e) {
-    console.log(this.state.name_1);
-    console.log(this.state.description);
-    console.log(this.state.name);
-    console.log(this.state.rut);
-    console.log(this.state.email);
-    console.log(this.state.phone);
-    console.log(this.state.accountType);
-    console.log(this.state.account);
-    console.log(this.state.password);
-    console.log(this.state.password_2);
-
-    /* validacion de usuario */
+    /*validacion de usuario */
     const email = this.state.email
     const password = this.state.password
     const rut = this.state.rut
-    //const userLogin = login(rut, email, password)
-    //console.log(userLogin)
+
+    this.UserExists(email, password, rut)
+    // UserApi.then(response => response.json())
+    //   .then(response => items => response['user'].name)
+    //   .then(response => console.log(response))
+
   }
-
-
-  //   componentDidMount() {
-  //     fetch('http://192.168.0.93:3977/api/get-users')
-  //    //fetch('https://jsonplaceholder.typicode.com/users')
-  //      .then(res => res.json())
-  //      .then(json => {
-  //        this.setState({
-  //          items: json,
-  //          isLoaded: true,
-  //        })
-  //      }).catch((err) => {
-  //        console.log(err);
-  //      });
-  //  }
-
 
 
   render() {
@@ -207,6 +179,46 @@ export default class SignUp extends Component {
       </form>
     );
   }
+
+  async UserExists(email, password, rut) {
+    console.log('entra en UserExists:' + email + ' - ' + password + ' - ' + rut)
+    rut = '121081784'
+    email = 'floyd70s@gmail.com'
+    password = 'Galloviejo1'
+
+    var url = 'http://192.168.0.93:3977/api/get-user-by-rut',
+      params = {
+        method: 'POST',
+        mode: 'cors',
+        //redirect: 'follow',
+        body: JSON.stringify({ 'rut': rut, 'email': email, 'password': password }),
+        headers: { 'Content-Type': 'application/json' },
+      };
+
+    var request = new Request(url, params);
+    fetch(request)
+    //let res = await fetch('http://192.168.0.93:3977/api/get-users')
+      .then(
+        function (response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+
+          // Examine the text in the response
+          response.json().then(function (data) {
+            console.log(data);
+            console.log('respuesta')
+          });
+        }
+      )
+      .catch(function (err) {
+        console.log(err)
+        console.log('Fetch Error :-S', err);
+      });
+
+
+  }
+
 }
-
-
