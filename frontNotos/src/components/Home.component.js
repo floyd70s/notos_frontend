@@ -4,7 +4,8 @@ import { Button } from 'reactstrap';
 //import Contacts from "./contacts";
 // import Users from "./users"
 //import PostRequest from "./PostRequest.component";
-import Register from "./Register.component";
+//import Test from "./Test.component";
+import RegisterNotos from "./RegisterNotos.component";
 
 export default class Login extends Component {
 
@@ -24,7 +25,8 @@ export default class Login extends Component {
         </Button>
         {/* <Users/> */}
         {/* <PostRequest/> */}
-        < Register />
+        {/* <Test /> */}
+        < RegisterNotos />
       </Container>
     );
   }
