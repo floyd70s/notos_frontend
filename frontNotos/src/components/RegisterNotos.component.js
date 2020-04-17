@@ -6,7 +6,7 @@ import 'regenerator-runtime/runtime';
 import 'raf/polyfill';
 import React, { useState, useRef } from 'react';
 import { isEqual } from 'lodash-es';
-import '/../Utils/rut';
+import validaRut from '../rut.js';
 
 import {
   FormWithConstraints,
@@ -15,7 +15,7 @@ import {
   FieldFeedback
 } from 'react-form-with-constraints-bootstrap4';
 
-const { validate, clean, format } = require('rut.js')
+
 
 function Form() {
   const form = useRef(null);
@@ -99,6 +99,7 @@ function Form() {
       .then(res => {
         res.json()
         console.log('respuesta del servicio:' + res.status)
+        console.log('respuesta del servicio:' + res._id)
         return (res.status)
       })
       .catch((err) => {
@@ -125,11 +126,13 @@ function Form() {
     });
     console.log(target.value.length)
     if (target.value.length > 8) {
-      let bRut = validate(target.value)
+      let bRut = validaRut.validate(target.value)
       console.log(bRut)
+      if(bRut){
+        await form.current.validateFields(target);
+      }
     }
 
-    await form.current.validateFields(target);
     setSignUpButtonDisabled(!form.current.isValid());
     setResetButtonDisabled(shouldDisableResetButton(inputs));
   }//------------------------------------------------------------------------------------
@@ -139,6 +142,7 @@ function Form() {
     e.preventDefault();
     var bAccountType = false
     var bBank = false
+    var bRut = validaRut.validate(inputs.rut)
 
     // validacion de tipo de cuenta.
     if (inputs.account_type !== "") {
@@ -170,6 +174,9 @@ function Form() {
       setSignUpButtonDisabled(!form.current.isValid());
       setResetButtonDisabled(shouldDisableResetButton(inputs));
       alert('falta completar su banco')
+    }
+    else if(!bRut){
+      alert('corrija su rut')
     }
     else {
       if (formIsValid) {
@@ -272,7 +279,7 @@ function Form() {
         <FieldFeedbacks for="rut">
           <FieldFeedback when="tooShort">Nombre demasiado corto</FieldFeedback>
           <FieldFeedback when="*" />
-          <FieldFeedback when="valid">vamos bien!</FieldFeedback>
+          <FieldFeedback when="valid"></FieldFeedback>
         </FieldFeedbacks>
       </div>
       {/*-- email ----------------------------------------------------------------------------------------------------  */}
@@ -386,7 +393,6 @@ function Form() {
           <FieldFeedback when="valid">vamos bien!</FieldFeedback>
         </FieldFeedbacks>
       </div>
-
       {/*-- boton  ----------------------------------------------------------------------------------------------------  */}
       <button type="submit" disabled={signUpButtonDisabled} className="btn btn-primary">
         Registrarse
