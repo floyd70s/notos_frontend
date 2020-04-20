@@ -108,6 +108,8 @@ function Form() {
 
   }//------------------------------------------------------------------------------------
 
+
+
   function shouldDisableResetButton(state) {
     return isEqual(getInitialInputsState(), state) && !form.current.hasFeedbacks();
   }//------------------------------------------------------------------------------------
