@@ -3,6 +3,7 @@ import React from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
+import { Link } from "react-router-dom";
 // core components
 import {
   Button
@@ -45,11 +46,11 @@ function IndexHeader() {
             <h1 className="h1-seo">Bienvenido a Notos</h1>
             <h3>La red donde podrás crear y aportar a iniciativas</h3>
             <h3>En notos puedes Crear una iniciativa o Aportar a una ya existente</h3>
-            <Button className="btn-round" color="primary" type="button" size="lg">
-              <i className="now-ui-icons ui-2_favourite-28"></i>
+            <Button className="btn-round" size="lg" color="primary" to="register" tag={Link}>
+              <i className="now-ui-icons gestures_tap-01"></i>
                 Crear
               </Button>
-              <Button className="btn-round" color="primary" type="button" size="lg">
+            <Button className="btn-round" color="primary" size="lg" to="register_n" tag={Link}>
               <i className="now-ui-icons ui-2_favourite-28"></i>
                 Aportar
               </Button>

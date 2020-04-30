@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  Button,
   Collapse,
   DropdownToggle,
   DropdownMenu,
@@ -93,7 +92,7 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
+                  <i className="now-ui-icons business_bulb-63"></i>
                   <p>Como funciona</p>
                 </NavLink>
               </NavItem>
@@ -105,7 +104,7 @@ function IndexNavbar() {
                   nav
                   onClick={e => e.preventDefault()}
                 >
-                  <i className="now-ui-icons design_app mr-1"></i>
+                  <i className="now-ui-icons education_glasses"></i>
                   <p>Preguntas frecuentes</p>
                 </DropdownToggle>
                 <DropdownMenu>

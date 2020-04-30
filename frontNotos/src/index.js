@@ -11,16 +11,17 @@ import "assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
-
+import Register from "views/index-sections/Register.js"
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Switch>
-        <Route path="/index" render={props => <Index {...props} />} />
-        <Route path="/nucleo-icons" render={props => <NucleoIcons {...props} />} />
-        <Redirect to="/index" />
-        <Redirect from="/" to="/index" />
+          <Route path="/index" render={props => <Index {...props} />} />
+          <Route path="/nucleo-icons" render={props => <NucleoIcons {...props} />} />
+          <Route path="/register" render={props => <Register {...props} />} />
+          <Redirect to="/index" />
+          <Redirect from="/" to="/index" />
       </Switch>
     </Switch>
   </BrowserRouter>,

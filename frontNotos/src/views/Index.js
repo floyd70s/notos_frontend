@@ -7,9 +7,7 @@ import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 
 // sections for this page
-import BasicElements from "./index-sections/BasicElements.js";
-import Navbars from "./index-sections/Navbars.js";
-import Register from "./index-sections/Register.js";
+// import Register from "./index-sections/Register.js";
 
 
 function Index() {
@@ -30,8 +28,6 @@ function Index() {
       <div className="wrapper">
         <IndexHeader />
         <div className="main">
-          <Navbars />
-          <Register />
         </div>
         <DarkFooter />
       </div>
