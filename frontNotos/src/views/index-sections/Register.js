@@ -4,10 +4,14 @@ import 'raf/polyfill';
 import React, { useState, useRef } from 'react';
 import { isEqual } from 'lodash-es';
 import validaRut from 'views/index-sections/rut.js';
+import Modal from 'views/index-sections/modal.js';
+import Index from 'views/Index.js'
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import RegisterHeader from "components/Headers/RegisterHeader.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
   FormWithConstraints,
@@ -35,7 +39,7 @@ function Register() {
 
   function getInitialInputsState() {
     return {
-      name_1: '',
+      nameCampaign: '',
       description: '',
       name: '',
       rut: '',
@@ -80,14 +84,14 @@ function Register() {
           console.log(res['user'].bank)
           console.log(res['user']._id)
           console.log('el usuario existe ,solo se debe registrar la iniciativa')
-          saveCampaign(inputs.name_1, inputs.description, 'sin-imagen', 'hashtag', inputs.rut,res['user']._id)
+          saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut,res['user']._id)
           alert('Genial, tu nueva campaña ya se encuentra activa.')
         }
         else {
           console.log('el usuario no existe , se debe registrar el usuario y la iniciativa')
           idUser = saveUser(inputs.name, inputs.rut, inputs.email, inputs.phone, inputs.account_type, inputs.bank, inputs.bank_account)
           console.log('****idUser:' + idUser)
-          // saveCampaign(inputs.name_1, inputs.description, 'sin-imagen', 'hashtag', inputs.rut)
+          // saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut)
           alert('Genial, solo falta que valides la cuenta desde tu correo electronico.')
         }
 
@@ -136,7 +140,7 @@ function Register() {
         if (resp_aux.status === 200) {
           console.log('estado(200) --> se guardo el usuario')
           console.log(res['user']._id)
-          saveCampaign(inputs.name_1, inputs.description, 'sin-imagen', 'hashtag', inputs.rut)
+          saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut)
         }
         else {
           console.log('no se guardo el usuario')
@@ -258,6 +262,14 @@ function Register() {
       if (formIsValid) {
         userExists(inputs.rut)
         handleReset()
+        
+        ReactDOM.render(
+          <Router>  
+            {/* <Modal title='Registro' items={inputs.nameCampaign,inputs.name}/> */}
+            <Index />
+          </Router>,
+            document.getElementById('root')
+          );
       }
     }
   }//------------------------------------------------------------------------------------
@@ -280,15 +292,15 @@ function Register() {
                 <div className="content-center">
                   <FormWithConstraints ref={form} onSubmit={handleSubmit} noValidate>
                     <h3 className="title">Formulario de inscripción</h3>
-                    {/*-- Name_1 ----------------------------------------------------------------------------------------------------  */}
+                    {/*-- nameCampaign ----------------------------------------------------------------------------------------------------  */}
                     <div className="form-group">
-                      <label htmlFor="name_1">
+                      <label htmlFor="nameCampaign">
                         Nombre de la iniciativa <small></small>
                       </label>
                       <Input
-                        id="name_1"
-                        name="name_1"
-                        value={inputs.name_1}
+                        id="nameCampaign"
+                        name="nameCampaign"
+                        value={inputs.nameCampaign}
                         onChange={handleChange}
                         required
                         minLength={1}
@@ -296,7 +308,7 @@ function Register() {
                       // className="now-ui-icons users_circle-08"
 
                       />
-                      <FieldFeedbacks for="name_1">
+                      <FieldFeedbacks for="nameCampaign">
                         <FieldFeedback when="tooShort">Nombre demasiado corto</FieldFeedback>
                         <FieldFeedback when="*" />
                         <FieldFeedback when="valid">vamos bien!</FieldFeedback>

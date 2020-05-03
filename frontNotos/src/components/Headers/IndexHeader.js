@@ -32,17 +32,12 @@ function IndexHeader() {
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/header.jpg") + ")"
+            backgroundImage: "url(" + require("assets/img/bg12.jpg") + ")"
           }}
           ref={pageHeader}
         ></div>
         <Container>
           <div className="content-center brand">
-            <img
-              alt="..."
-              className="n-logo"
-              src={require("assets/img/now-logo.png")}
-            ></img>
             <h1 className="h1-seo">Bienvenido a Notos</h1>
             <h3>La red donde podrás crear y aportar a iniciativas</h3>
             <h3>En notos puedes Crear una iniciativa o Aportar a una ya existente</h3>

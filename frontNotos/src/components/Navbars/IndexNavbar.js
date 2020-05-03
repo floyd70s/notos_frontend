@@ -53,8 +53,7 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
-              href="https://demos.creative-tim.com/now-ui-kit-react/#/index?ref=nukr-index-navbar"
-              target="_blank"
+              href="http://notos.cl"
               id="navbar-brand"
             >
               Notos
@@ -159,6 +158,34 @@ function IndexNavbar() {
                 <UncontrolledTooltip target="#instagram-tooltip">
                   Follow us on Instagram
                 </UncontrolledTooltip>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                    document
+                      .getElementById("download-section")
+                      .scrollIntoView();
+                  }}
+                >
+                  <i className="now-ui-icons business_bulb-63"></i>
+                  <p>Ingresar</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="#pablo"
+                  onClick={e => {
+                    e.preventDefault();
+                    document
+                      .getElementById("download-section")
+                      .scrollIntoView();
+                  }}
+                >
+                  <i className="now-ui-icons business_bulb-63"></i>
+                  <p>Registrarse</p>
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
