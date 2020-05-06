@@ -57,11 +57,11 @@ function Register() {
   /**
    * @author: CPD
    * @description: valida si existe el usuario en base a su rut
-   * @param {*} rut 
+   * @param {*} rut
    */
   async function userExists(rut) {
     var getUserbyRut = 'get-user-by-rut'
-    var url = 'http://192.168.0.97:3977/api/' + getUserbyRut,
+    var url = 'http://localhost:3977/api/' + getUserbyRut,
       params = {
         method: 'POST',
         mode: 'cors',
@@ -107,19 +107,19 @@ function Register() {
    * @author: CPD.
    * @name : saveUser
    * @Description : guarda nuevo usuario
-   * @param {*} name 
-   * @param {*} rut 
-   * @param {*} email 
-   * @param {*} phone 
-   * @param {*} account_type 
-   * @param {*} bank 
-   * @param {*} bank_account 
+   * @param {*} name
+   * @param {*} rut
+   * @param {*} email
+   * @param {*} phone
+   * @param {*} account_type
+   * @param {*} bank
+   * @param {*} bank_account
    */
   function saveUser(name, rut, email, phone, account_type, bank, bank_account) {
     console.log('---saveUser---')
     console.log(name + ' ' + rut + ' ' + email + ' ' + phone + ' ' + account_type + ' ' + bank + ' ' + bank_account + ' ')
     var payload = 'saveUser'
-    var url = 'http://192.168.0.97:3977/api/' + payload,
+    var url = 'http://localhost:3977/api/' + payload,
       params = {
         method: 'POST',
         mode: 'cors',
@@ -159,18 +159,18 @@ function Register() {
   * @author: CPD.
   * @name : saveUser
   * @Description : guarda nueva campaña
-  * @param {*} name 
-  * @param {*} description 
-  * @param {*} image 
-  * @param {*} hashtag 
-  * @param {*} validity 
-  * @param {*} rut 
+  * @param {*} name
+  * @param {*} description
+  * @param {*} image
+  * @param {*} hashtag
+  * @param {*} validity
+  * @param {*} rut
   */
   async function saveCampaign(name, description, image, hashtag, rut,userId) {
     console.log('saveCampaign')
     console.log(name + ' ' + rut + ' ' + description + ' ' + hashtag + ' ')
     var payload = 'saveCampaign'
-    var url = 'http://192.168.0.97:3977/api/' + payload,
+    var url = 'http://localhost:3977/api/' + payload,
       params = {
         method: 'POST',
         mode: 'cors',
@@ -262,9 +262,9 @@ function Register() {
       if (formIsValid) {
         userExists(inputs.rut)
         handleReset()
-        
+
         ReactDOM.render(
-          <Router>  
+          <Router>
             {/* <Modal title='Registro' items={inputs.nameCampaign,inputs.name}/> */}
             <Index />
           </Router>,
