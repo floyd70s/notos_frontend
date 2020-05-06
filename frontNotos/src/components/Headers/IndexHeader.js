@@ -45,7 +45,7 @@ function IndexHeader() {
               <i className="now-ui-icons gestures_tap-01"></i>
                 Crear
               </Button>
-            <Button className="btn-round" color="primary" size="lg" to="register_n" tag={Link}>
+            <Button className="btn-round" color="primary" size="lg" to="listCampaigns" tag={Link}>
               <i className="now-ui-icons ui-2_favourite-28"></i>
                 Aportar
               </Button>

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "lodash-es": "^4.17.15",
     "moment": "2.24.0",
@@ -16,7 +17,7 @@
     "react-form-with-constraints": "^0.15.0",
     "react-form-with-constraints-bootstrap4": "^0.15.0",
     "react-router": "^5.0.1",
-    "react-router-dom": "5.0.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "reactstrap": "8.0.1",
     "regenerator-runtime": "^0.13.5"
