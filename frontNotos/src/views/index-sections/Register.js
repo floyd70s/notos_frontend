@@ -4,14 +4,14 @@ import 'raf/polyfill';
 import React, { useState, useRef } from 'react';
 import { isEqual } from 'lodash-es';
 import validaRut from 'views/index-sections/rut.js';
-import Modal from 'views/index-sections/modal.js';
-import Index from 'views/Index.js'
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import RegisterHeader from "components/Headers/RegisterHeader.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { Redirect } from "react-router-dom";
+
+import ModalExample from "views/index-sections/ModalExample.js";
 
 import {
   FormWithConstraints,
@@ -35,7 +35,7 @@ function Register() {
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
   const [resetButtonDisabled, setResetButtonDisabled] = useState(true);
 
-  let idUser=0
+  let idUser = 0
 
   function getInitialInputsState() {
     return {
@@ -84,8 +84,9 @@ function Register() {
           console.log(res['user'].bank)
           console.log(res['user']._id)
           console.log('el usuario existe ,solo se debe registrar la iniciativa')
-          saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut,res['user']._id)
-          alert('Genial, tu nueva campaña ya se encuentra activa.')
+          saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut, res['user']._id)
+          // alert('Genial, tu nueva campaña ya se encuentra activa.')
+
         }
         else {
           console.log('el usuario no existe , se debe registrar el usuario y la iniciativa')
@@ -166,7 +167,7 @@ function Register() {
   * @param {*} validity
   * @param {*} rut
   */
-  async function saveCampaign(name, description, image, hashtag, rut,userId) {
+  async function saveCampaign(name, description, image, hashtag, rut, userId) {
     console.log('saveCampaign')
     console.log(name + ' ' + rut + ' ' + description + ' ' + hashtag + ' ')
     var payload = 'saveCampaign'
@@ -174,7 +175,7 @@ function Register() {
       params = {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ 'name': name, 'description': description, 'hashtag': hashtag, 'validity': 60, 'rut': rut,'user':userId }),
+        body: JSON.stringify({ 'name': name, 'description': description, 'hashtag': hashtag, 'validity': 60, 'rut': rut, 'user': userId }),
         headers: { 'Content-Type': 'application/json' },
       };
 
@@ -262,14 +263,10 @@ function Register() {
       if (formIsValid) {
         userExists(inputs.rut)
         handleReset()
-
         ReactDOM.render(
-          <Router>
-            {/* <Modal title='Registro' items={inputs.nameCampaign,inputs.name}/> */}
-            <Index />
-          </Router>,
-            document.getElementById('root')
-          );
+          <ModalExample />,
+          document.getElementById("root"),
+        );
       }
     }
   }//------------------------------------------------------------------------------------
@@ -488,15 +485,10 @@ function Register() {
                     {/*-- boton  ----------------------------------------------------------------------------------------------------  */}
                     <button type="submit" disabled={signUpButtonDisabled} className="btn btn-primary">
                       Registrarse
-                        </button>{' '}
-                    <button
-                      type="button"
-                      onClick={handleReset}
-                      disabled={resetButtonDisabled}
-                      className="btn btn-secondary"
-                    >
+                    </button>
+                    <button type="button" onClick={handleReset} disabled={resetButtonDisabled} className="btn btn-secondary">
                       limpiar
-                        </button>
+                    </button>
                   </FormWithConstraints >
                 </div>
               </Col>

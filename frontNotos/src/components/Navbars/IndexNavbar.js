@@ -53,7 +53,7 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
-              href="http://notos.cl"
+              href="/"
               id="navbar-brand"
             >
               Notos
@@ -81,6 +81,22 @@ function IndexNavbar() {
             navbar
           >
             <Nav navbar>
+              <NavItem>
+                <NavLink
+                  href="/register"
+                >
+                  <i className="now-ui-icons business_bulb-63"></i>
+                  <p>Crear Campaña</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  href="/listCampaigns"
+                >
+                  <i className="now-ui-icons business_bulb-63"></i>
+                  <p>Aportar</p>
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink
                   href="#pablo"
