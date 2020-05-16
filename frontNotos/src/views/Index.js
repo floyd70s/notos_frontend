@@ -6,10 +6,6 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 
-// sections for this page
-// import Register from "./index-sections/Register.js";
-
-
 function Index() {
   React.useEffect(() => {
     document.body.classList.add("index-page");

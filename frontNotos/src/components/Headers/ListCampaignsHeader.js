@@ -33,8 +33,7 @@ function RegisterHeader() {
         ></div>
         <div className="content-center">
           <Container>
-            <h1 className="title">Iniciativas</h1>
-            <h3 className="title">Tú puedes hacer la diferencia</h3>
+            <h1 className="title">Nuestras Campañas</h1>
           </Container>
         </div>
       </div>

@@ -9,7 +9,8 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import RegisterHeader from "components/Headers/RegisterHeader.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 import ReactDOM from 'react-dom';
-// import { Redirect } from "react-router-dom";
+
+
 
 import ModalExample from "views/index-sections/ModalExample.js";
 
@@ -20,13 +21,14 @@ import {
   FieldFeedback
 } from 'react-form-with-constraints-bootstrap4';
 
-
 // reactstrap components
 import {
   Input,
   Col,
   Row,
-  Container
+  Container,
+  Label,
+  FormText
 } from "reactstrap";
 
 function Register() {
@@ -51,7 +53,8 @@ function Register() {
       bank: '',
       bank_account: '',
       account_typeValidate: '',
-      userId: ''
+      userId: '',
+      imageUrl: ''
     };
   }
   /**
@@ -203,6 +206,18 @@ function Register() {
     setSignUpButtonDisabled(!form.current.isValid());
     setResetButtonDisabled(shouldDisableResetButton(inputs));
   }//------------------------------------------------------------------------------------
+
+
+  // setInputs(prevState => {
+  //   return { ...prevState, [target.name]: target.value };
+  // });
+  // async function handleChangeImage({ target }) {
+  function handleChangeImage(event){
+    event.preventDefault();
+    console.log(event.target.files[0])
+  }//------------------------------------------------------------------------------------
+
+
   async function handleRutChange({ target }) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
@@ -331,6 +346,19 @@ function Register() {
                         <FieldFeedback when="*" />
                         <FieldFeedback when="valid">vamos bien!</FieldFeedback>
                       </FieldFeedbacks>
+                    </div>
+                    {/*-- Image ----------------------------------------------------------------------------------------------------  */}
+                    <div className="form-group">
+                      <Label for="exampleFile">Selecciona una Imagen para tu campaña</Label>
+                      <input
+                        ref="uploadImg"
+                        type="file"
+                        name="selectedFile"
+                        onChange={(e) => this.handleChangeImage(e)}
+                      />
+                      <FormText color="muted">
+                        pincha acá para cargar una imagen.
+                      </FormText>
                     </div>
                     {/*-- name  ----------------------------------------------------------------------------------------------------  */}
                     <div className="form-group">
