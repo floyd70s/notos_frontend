@@ -57,7 +57,7 @@ class ModalExample extends React.Component {
         <Modal.Header>Bravo !!!!</Modal.Header>
         <Modal.Body>
           <p>Estamos muy felices y esperamos que puedas cumplir con tu meta.</p>
-          <p>Cuenta con nosotros √√√</p></Modal.Body>
+          <p>Cuenta con nosotros.</p></Modal.Body>
         <Modal.Footer>
           <Button type='button' onClick={this.CloseModal}>Cerrar</Button>
         </Modal.Footer>

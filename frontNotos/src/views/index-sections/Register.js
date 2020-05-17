@@ -9,9 +9,6 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import RegisterHeader from "components/Headers/RegisterHeader.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 import ReactDOM from 'react-dom';
-
-
-
 import ModalExample from "views/index-sections/ModalExample.js";
 
 import {
@@ -27,16 +24,17 @@ import {
   Col,
   Row,
   Container,
-  Label,
-  FormText
+  Jumbotron
 } from "reactstrap";
+
+import Card from "react-bootstrap/Card";
 
 function Register() {
   const form = useRef(null);
   const [inputs, setInputs] = useState(getInitialInputsState());
+  const [inputs2, setInputs2] = useState(getInitialInputsState2());
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
   const [resetButtonDisabled, setResetButtonDisabled] = useState(true);
-
   let idUser = 0
 
   function getInitialInputsState() {
@@ -54,12 +52,24 @@ function Register() {
       bank_account: '',
       account_typeValidate: '',
       userId: '',
-      imageUrl: ''
+      imageUrl: '',
+      textImage: 'pincha acá'
+    };
+  }
+  function getInitialInputsState2() {
+    return {
+      compressedLink: "",
+      originalImage: "",
+      originalLink: "",
+      clicked: false,
+      uploadImage: false,
+      userId: "",
+      campaignId: ""
     };
   }
   /**
    * @author: CPD
-   * @description: valida si existe el usuario en base a su rut
+   * @description: valida si existe el usuario en base a su rut, luego si existe el usuario llama a saveCampaign
    * @param {*} rut
    */
   async function userExists(rut) {
@@ -95,8 +105,9 @@ function Register() {
           console.log('el usuario no existe , se debe registrar el usuario y la iniciativa')
           idUser = saveUser(inputs.name, inputs.rut, inputs.email, inputs.phone, inputs.account_type, inputs.bank, inputs.bank_account)
           console.log('****idUser:' + idUser)
-          // saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut)
-          alert('Genial, solo falta que valides la cuenta desde tu correo electronico.')
+          saveCampaign(inputs.nameCampaign, inputs.description, 'sin-imagen', 'hashtag', inputs.rut)
+
+          // alert('Genial, solo falta que valides la cuenta desde tu correo electronico.')
         }
 
       })
@@ -158,7 +169,6 @@ function Register() {
 
     console.log('fin de saveUser')
   }//------------------------------------------------------------------------------------
-
   /**
   * @author: CPD.
   * @name : saveUser
@@ -188,6 +198,43 @@ function Register() {
         res.json()
         console.log('respuesta del servicio:' + res.status)
         console.log('respuesta del servicio:' + res._id)
+
+        // saveImage(res._id,inputs2.originalLink)
+        const files = document.getElementById("INPUT_TAG").files
+        saveImage(res._id, files)
+        return (res.status)
+      })
+      .catch((err) => {
+        return "error";
+      })
+
+  }//------------------------------------------------------------------------------------
+  async function saveImage(campaignId,files) {
+
+    console.log('---- saveImage -----')
+
+    let token = localStorage.getItem('token')
+    // const files = document.getElementById("INPUT_TAG").files
+    console.log(files[0])
+
+    var formData = new FormData();
+    formData.append("image", files[0]);
+
+    var payload = 'upload-Image-campaign/'
+    var url = 'http://localhost:3977/api/' + payload + campaignId,
+      params = {
+        method: 'POST',
+        mode: 'cors',
+        body: formData,
+        headers: { 'Authorization': `Bearer ${token}` },
+      };
+
+    var request = new Request(url, params);
+    fetch(request)
+      .then(res => {
+        res.json()
+        console.log('respuesta del servicio:' + res.status)
+        console.log('respuesta del servicio:' + res._id)
         return (res.status)
       })
       .catch((err) => {
@@ -206,18 +253,20 @@ function Register() {
     setSignUpButtonDisabled(!form.current.isValid());
     setResetButtonDisabled(shouldDisableResetButton(inputs));
   }//------------------------------------------------------------------------------------
+  function handleImage(e) {
+    const imageFile = e.target.files[0];
+    setInputs2(prevState => {
+      return {
+        ...prevState,
+        originalLink: URL.createObjectURL(imageFile),
+        originalImage: imageFile,
+        outputFileName: imageFile.name,
+        uploadImage: true
+      };
+    });
+    console.log(imageFile)
 
-
-  // setInputs(prevState => {
-  //   return { ...prevState, [target.name]: target.value };
-  // });
-  // async function handleChangeImage({ target }) {
-  function handleChangeImage(event){
-    event.preventDefault();
-    console.log(event.target.files[0])
-  }//------------------------------------------------------------------------------------
-
-
+  };//------------------------------------------------------------------------------------
   async function handleRutChange({ target }) {
     setInputs(prevState => {
       return { ...prevState, [target.name]: target.value };
@@ -348,18 +397,35 @@ function Register() {
                       </FieldFeedbacks>
                     </div>
                     {/*-- Image ----------------------------------------------------------------------------------------------------  */}
-                    <div className="form-group">
-                      <Label for="exampleFile">Selecciona una Imagen para tu campaña</Label>
+                    <Jumbotron fluid>
+                    <label htmlFor="description">
+                      Seleccione una imagen <small></small>
+                    </label>
+                    <div className="d-flex justify-content-center">
                       <input
-                        ref="uploadImg"
                         type="file"
-                        name="selectedFile"
-                        onChange={(e) => this.handleChangeImage(e)}
+                        id="INPUT_TAG"
+                        accept="image/*"
+                        className="mt-2 btn btn-muted w-75"
+                        onChange={handleImage}
                       />
-                      <FormText color="muted">
-                        pincha acá para cargar una imagen.
-                      </FormText>
                     </div>
+                    {inputs2.uploadImage ? (
+                      <Card.Img
+                        className="ht"
+                        variant="top"
+                        src={inputs2.originalLink}
+                        style={{ width: "10rem" }}
+                      ></Card.Img>
+                    ) : (
+                        <Card.Img
+                          className="ht"
+                          variant="top"
+                          src="http://navparivartan.in/wp-content/uploads/2018/11/placeholder.png"
+                          style={{ width: "1rem" }}
+                        ></Card.Img>
+                      )}
+                       </Jumbotron>
                     {/*-- name  ----------------------------------------------------------------------------------------------------  */}
                     <div className="form-group">
                       <label htmlFor="name">
@@ -515,7 +581,7 @@ function Register() {
                       Registrarse
                     </button>
                     <button type="button" onClick={handleReset} disabled={resetButtonDisabled} className="btn btn-secondary">
-                      limpiar
+                      Limpiar
                     </button>
                   </FormWithConstraints >
                 </div>
